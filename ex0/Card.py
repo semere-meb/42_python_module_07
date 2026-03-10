@@ -1,4 +1,4 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 
 class Card(ABC):
@@ -11,11 +11,11 @@ class Card(ABC):
         self.cost = cost
         self.rarity = rarity
 
-    @abstractclassmethod
+    @abstractmethod
     def play(self, game_state: dict) -> dict: ...
 
     def get_card_info(self) -> dict:
-        pass
+        return {}
 
     def is_playable(self, available_mana: int) -> bool:
-        return {"Playable": available_mana > 3}
+        return available_mana > 3
