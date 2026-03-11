@@ -34,19 +34,22 @@ class Deck:
 
     def get_deck_stats(self) -> dict:
         return {
-            "total_cards":
-                len(self.cards),
-            "creatures":
-                len([card for card in self.cards
-                    if isinstance(card, CreatureCard)]),
-            "spells":
-                len([card for card in self.cards
-                    if isinstance(card, SpellCard)]),
-            "artifcats":
-                len([card for card in self.cards
-                    if isinstance(card, ArtifactCard)]),
+            "total_cards": len(self.cards),
+            "creatures": len(
+                [card for card in self.cards
+                    if isinstance(card, CreatureCard)],
+            ),
+            "spells": len(
+                [card for card in self.cards
+                    if isinstance(card, SpellCard)],
+            ),
+            "artifcats": len(
+                [card for card in self.cards
+                    if isinstance(card, ArtifactCard)]
+            ),
             "avg_cost":
-                sum([card.cost for card in self.cards]) / len(self.cards)
+                sum([card.cost for card in self.cards]) /
+                len(self.cards)
                 if len(self.cards)
                 else 0,
         }

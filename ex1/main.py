@@ -15,10 +15,9 @@ def main() -> None:
     deck = Deck()
     cards = [
         ArtifactCard("Mana Crystal", 10, "rare", 5,
-                     "Permanent: +1 mana per turn"),
+                     "Permanent: +1 mana per turn",),
         CreatureCard("Random Creature", 10, "Legendary", 10, 10),
-        SpellCard("Lightning Bolt", 10, "Rare",
-                  "Deal 3 damage to target"),
+        SpellCard("Lightning Bolt", 10, "Rare", "Deal 3 damage to target"),
     ]
 
     for card in cards:
