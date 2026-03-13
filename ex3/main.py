@@ -20,7 +20,6 @@ def main() -> None:
 
     print("\nSimulating aggressive turn...")
 
-    # Show a sample hand (recreate the initial hand for display purposes)
     deck = factory.create_themed_deck(3)
     hand = []
     for subset in deck.values():

@@ -14,23 +14,19 @@ class GameEngine:
         self._total_damage = 0
         self._last_actions: dict = {}
 
-    def configure_engine(self, factory: CardFactory, strategy: GameStrategy) -> None:
-        """Configure the engine with a card factory and a game strategy."""
+    def configure_engine(self, factory: CardFactory, strategy: GameStrategy):
         self._factory = factory
         self._strategy = strategy
 
     def simulate_turn(self) -> dict:
-        """Simulate a single game turn and return a report."""
         if self._factory is None or self._strategy is None:
-            raise RuntimeError("GameEngine must be configured with a factory and strategy before simulating a turn")
+            raise RuntimeError("GameEngine not configured correctly")
 
-        # Create a small starting hand
         deck = self._factory.create_themed_deck(3)
         hand = []
         for subset in deck.values():
             hand.extend(subset)
 
-        # Create a simple battlefield target list (enemy player + enemy creatures)
         enemy_targets = ["Enemy Player", "Enemy Creature"]
 
         actions = self._strategy.execute_turn(hand, enemy_targets)
@@ -49,9 +45,11 @@ class GameEngine:
         return report
 
     def get_engine_status(self) -> dict:
-        """Return the current configuration status of the engine."""
         return {
             "factory": type(self._factory).__name__ if self._factory else None,
-            "strategy": type(self._strategy).__name__ if self._strategy else None,
-            "supported_types": self._factory.get_supported_types() if self._factory else {},
+            "strategy": type(self._strategy).__name__
+            if self._strategy else None,
+            "supported_types": self._factory.get_supported_types()
+            if self._factory
+            else {},
         }

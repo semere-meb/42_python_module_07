@@ -5,13 +5,7 @@ from .GameStrategy import GameStrategy
 
 
 class AggressiveStrategy(GameStrategy):
-
     def execute_turn(self, hand: list, battlefield: list) -> dict:
-        """Execute a single aggressive turn.
-
-        Plays the lowest-cost cards first until mana is exhausted. Damage is
-        computed using creature attack values and spell effects.
-        """
         max_mana = 5
         mana_used = 0
         cards_played = []
@@ -26,14 +20,11 @@ class AggressiveStrategy(GameStrategy):
             cards_played.append(card.name)
             mana_used += getattr(card, "cost", 0)
 
-            # Apply a simple damage formula based on card type
             if isinstance(card, CreatureCard):
                 damage_dealt += getattr(card, "attack", 0)
             elif isinstance(card, SpellCard):
-                # Spells deal damage proportional to their cost (simple proxy)
                 damage_dealt += getattr(card, "cost", 0) * 2
 
-            # Simulate playing the card (may mutate card state)
             card.play({})
 
         targets = self.prioritize_targets(battlefield)
@@ -49,13 +40,12 @@ class AggressiveStrategy(GameStrategy):
         return "AggressiveStrategy"
 
     def prioritize_targets(self, available_targets: list) -> list:
-        """Prioritize targets by ranking them (player first, then creatures)."""
         if not available_targets:
             return []
 
-        # Ensure consistent ordering: player first, then any other targets.
-        prioritized = [t for t in available_targets if "player" in str(t).lower()]
+        prioritized = [
+            t for t in available_targets if "player" in str(t).lower()
+        ]
         prioritized += [t for t in available_targets if t not in prioritized]
 
-        # Limit targets to a reasonable number
         return prioritized[:3]
